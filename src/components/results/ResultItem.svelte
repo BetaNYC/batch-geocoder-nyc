@@ -30,7 +30,7 @@
                 ...result,
                 features,
                 selectedFeatureId: features.length ? features[0].properties.id : null, //select first item by default
-                approved: null
+                checked: null
             }
             result = result
             update()
@@ -46,13 +46,13 @@
         }, 50)
     }
 
-    function toggleApproved(bool) {
+    function toggleChecked(bool) {
         if (result.selectedFeatureId && bool == true) {
-            result.approved = true
+            result.checked = true
         } else if (bool == false) {
-            result.approved = false
+            result.checked = false
         } else {
-            result.approved = null
+            result.checked = null
         }
         result = result
         update()
@@ -66,7 +66,7 @@
 
     function updateSelectedFeatureId(e) {
         result.selectedFeatureId = e.target.value
-        result.approved = null
+        result.checked = null
         result = result
         update()
     }
@@ -95,12 +95,12 @@
                     <input class="input is-small" type="text" placeholder="Street, Borough" bind:value={value}
                            on:keyup={() => value.length > 0 ? debounceGeocode(): null}>
                 </p>
-                <button class="button" on:click={() => toggleApproved(true)}>
+                <button class="button" on:click={() => toggleChecked(true)}>
                     <span class="icon">
                         <i class="material-icons">check</i>
                     </span>
                 </button>
-                <button class="button" on:click={() => toggleApproved(false)}>
+                <button class="button" on:click={() => toggleChecked(false)}>
                     <span class="icon">
                         <i class="material-icons">close</i>
                     </span>

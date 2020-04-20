@@ -1,11 +1,11 @@
-function getStatus({ features, selectedFeatureId, approved, pending }) {
-  let status = (!pending && (features.length === 0 || approved === false))
+function getStatus({ features, checked, pending }) {
+  let status = (!pending && (features.length === 0 || checked === false))
     ? 'Failed'
     : pending
       ? 'Pending'
-      : approved === true
-        ? 'Approved'
-        : 'Doubt'
+      : checked === true
+        ? 'Checked'
+        : 'Unchecked'
 
   return {
     status,
@@ -17,9 +17,9 @@ function colorLookup(status) {
   switch (status) {
     case 'Pending':
       return '#9e9e9e'
-    case 'Approved':
+    case 'Checked':
       return '#8bc34a'
-    case 'Doubt':
+    case 'Unchecked':
       return '#ff9800'
     case 'Failed':
       return '#f44336'

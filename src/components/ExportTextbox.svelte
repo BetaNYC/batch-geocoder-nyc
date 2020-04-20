@@ -57,7 +57,7 @@
     <h5 class="is-size-5">5. Copy and paste coordinates to spreadsheet, or <a on:click={downloadCSV}>download a csv</a>.
     </h5>
     <p class="is-size-7 has-text-grey-dark">Order of columns: [Original Columns], _location, _latitude, _longitude,
-        _status.</p>
+        _status, _bin, _bbl.</p>
     <div class="field top-margin">
         <div class="control">
             <textarea class="textarea" bind:value></textarea>

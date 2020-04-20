@@ -9,10 +9,10 @@
             name: 'Pending', color: '#9e9e9e', checked: true, count: 0
         },
         {
-            name: 'Approved', color: '#8bc34a', checked: true, count: 0
+            name: 'Checked', color: '#8bc34a', checked: true, count: 0
         },
         {
-            name: 'Doubt', color: '#ff9800', checked: true, count: 0
+            name: 'Unchecked', color: '#ff9800', checked: true, count: 0
         },
         {
             name: 'Failed', color: '#f44336', checked: true, count: 0
@@ -24,7 +24,7 @@
         const counts = $results.reduce((counts, { status }) => {
             counts[status] += 1
             return counts
-        }, { 'Pending': 0, 'Approved': 0, 'Doubt': 0, 'Failed': 0 })
+        }, { 'Pending': 0, 'Checked': 0, 'Unchecked': 0, 'Failed': 0 })
 
         status.forEach(i => i.count = counts[i.name])
         status = status
@@ -47,6 +47,10 @@
 
 <div class="container">
     <h5 class="is-size-5">4. Check the results</h5>
+    <p class="is-size-6 has-text-grey-dark">Click on an address below or on the map to view or edit. If
+        there were multiple locations for address found, the first hit will be selected.</p>
+    <p class="is-size-7 has-text-grey"> Check and Unchecked are optional labels you may use to keep track of
+        validated entries.</p>
     <div class="columns">
         <div class="column is-half">
             <div class="status">
@@ -86,7 +90,11 @@
         overflow-y: auto;
     }
 
-    .map{
+    .map {
         min-width: 400px;
+    }
+
+    .material-icons {
+        font-size: 0.8rem;
     }
 </style>

@@ -10,7 +10,7 @@
             address: fields[$addressColumn],
             fields,
             pending: true,
-            approved: null,
+            checked: null,
             status: 'Pending',
             color: '#9e9e9e',
             error: null
