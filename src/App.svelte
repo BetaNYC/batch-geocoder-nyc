@@ -8,6 +8,7 @@
     import AddToResults from './components/AddToResults.svelte'
     import Result from './components/Results.svelte'
     import ExportTextbox from './components/ExportTextbox.svelte'
+    import Footer from './components/Footer.svelte'
 
 
 </script>
@@ -20,7 +21,6 @@
             <p>Fueled by Planning Lab's <a href="https://labs-geosearch-docs.netlify.app/">GeoSearch</a> and Pelias.
                 Inspired by
                 Erik Willems' <a href="https://geocode.localfocus.nl/">Batch geocoder for journalists</a>.</p>
-            <p>Made with ❤️ by BetaNYC. File a GitHub feature request or issue here.</p>
         </div>
     </div>
 
@@ -35,6 +35,8 @@
     <Result/>
     <br>
     <ExportTextbox/>
+    <br>
+    <Footer/>
 
 </main>
 
