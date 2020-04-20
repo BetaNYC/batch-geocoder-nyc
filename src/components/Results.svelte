@@ -48,7 +48,7 @@
 <div class="container">
     <h5 class="is-size-5">4. Check the results</h5>
     <div class="columns">
-        <div class="column">
+        <div class="column is-half">
             <div class="status">
                 {#each status as item, name}
                     <label class="checkbox">
@@ -64,7 +64,7 @@
                 </div>
             </div>
         </div>
-        <div class="column">
+        <div class="column is-half map">
             <ResultsMap/>
         </div>
     </div>
@@ -84,5 +84,9 @@
         margin-top: 1rem;
         max-height: 400px;
         overflow-y: auto;
+    }
+
+    .map{
+        min-width: 400px;
     }
 </style>

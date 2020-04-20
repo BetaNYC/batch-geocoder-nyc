@@ -24,11 +24,14 @@
                         attribution: 'Carto | &copy; <a href="http://osm.org/copyright">OSM</a> contributors'
                     }
             ).addTo(map),
-            'google': L.tileLayer('http://www.google.com/maps/vt?lyrs=s@189&gl=cn&x={x}&y={y}&z={z}', {
+            'google satellite': L.tileLayer('http://www.google.com/maps/vt?lyrs=s@189&gl=cn&x={x}&y={y}&z={z}', {
+                ...settings,
+                attribution: '&copy; Google'
+            }),
+            'google road': L.tileLayer('https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
                 ...settings,
                 attribution: '&copy; Google'
             })
-
         }, {}, { position: 'topright', collapsed: true }).addTo(map)
 
         mapStore.set(map)
@@ -132,7 +135,7 @@
 
     #map {
         margin-top: 0.5rem;
-        min-width: 400px;
+        min-width: inherit;
         height: 400px;
     }
 

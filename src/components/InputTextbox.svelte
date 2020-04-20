@@ -3,6 +3,7 @@
     import { input, inputText } from '../stores'
     import Papa from 'papaparse'
 
+    const placeholder = 'name\taddress\nMunicipal Building\t1 Centre Street, New York, NY 10007\nEquitable Building\t120 Broadway, New York, NY 10271'
     let container
     let timer
 
@@ -53,7 +54,8 @@
     </div>
     <div class="field top-margin">
         <div class="control">
-            <textarea class="textarea" value={$inputText} on:keyup={({ target: { value } }) => debounce(value)}></textarea>
+            <textarea {placeholder} class="textarea" value={$inputText}
+                      on:keyup={({ target: { value } }) => debounce(value)}></textarea>
         </div>
     </div>
 </div>
@@ -64,5 +66,10 @@
         width: 100%;
         height: 150px;
         line-height: 1.1rem;
+    }
+
+    textarea::placeholder {
+        color: #a8a8a8;
+        font-weight: 300;
     }
 </style>

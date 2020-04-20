@@ -35,11 +35,6 @@
                         attribution: 'Carto | &copy; <a href="http://osm.org/copyright">OSM</a> contributors'
                     }
             ).addTo(map),
-            'google': L.tileLayer('http://www.google.com/maps/vt?lyrs=s@189&gl=cn&x={x}&y={y}&z={z}', {
-                ...settings,
-                attribution: '&copy; Google'
-            })
-
         }, {}, { position: 'topleft', collapsed: false }).addTo(map)
 
         //controls
@@ -74,8 +69,8 @@
 <style>
     #map {
         margin-top: 0.5rem;
-        width: 100%;
-        height: 400px;
+        width: 80%;
+        height: 300px;
     }
 
 </style>
