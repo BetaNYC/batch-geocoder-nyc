@@ -1,6 +1,7 @@
 <script>
     import 'bulma/css/bulma.css'
 
+    import SpeedSubtitle from './components/fun/SpeedSubtitle.svelte'
     import BoundsSelect from './components/BoundsSelect.svelte'
     import InputTextbox from './components/InputTextbox.svelte'
     import ColumnsSelect from './components/ColumnsSelect.svelte'
@@ -14,9 +15,7 @@
 <main>
     <div class="has-text-centered">
         <h3 class="title is-3">Batch geocoder for nyc</h3>
-        <p class="subtitle is-5">
-            Locations to coordinates <strong>at subway (on a "great" day) speed 🚆 🚉</strong>
-        </p>
+        <SpeedSubtitle/>
         <div class="has-text-grey-dark">
             <p>Fueled by Planning Lab's <a href="https://labs-geosearch-docs.netlify.app/">GeoSearch</a> and Pelias.
                 Inspired by
