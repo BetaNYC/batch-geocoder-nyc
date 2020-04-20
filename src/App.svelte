@@ -1,6 +1,7 @@
 <script>
     import 'bulma/css/bulma.css'
 
+    import LoadingIndicator from './components/results/LoadingIndicator.svelte'
     import SpeedSubtitle from './components/fun/SpeedSubtitle.svelte'
     import BoundsSelect from './components/BoundsSelect.svelte'
     import InputTextbox from './components/InputTextbox.svelte'
@@ -38,6 +39,7 @@
     <br>
     <Footer/>
 
+    <LoadingIndicator/>
 </main>
 
 <style>
