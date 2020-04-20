@@ -83,7 +83,7 @@
 
 
 </script>
-<div class="result-item">
+<div class="result-item" bind:this={result.dom}>
     <div class="top" on:click={toggleOpened}>
         <StatusBlock color={result.color} size="0.7"/> {result.address} (Hits: {result.features.length})
     </div>

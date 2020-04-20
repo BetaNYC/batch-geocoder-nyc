@@ -31,6 +31,7 @@ export let input = writable([])
 export let addressColumn = writable(null)
 //map store
 export let mapStore = writable(null)
-//result stores
+//results stores
 export let results = createResults()
 export let openedResultIndex = writable(null)
+export let resultsDOM = writable(null)

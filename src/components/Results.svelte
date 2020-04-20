@@ -1,5 +1,5 @@
 <script>
-    import { results, parameters, openedResultIndex } from '../stores'
+    import { results, parameters, resultsDOM, openedResultIndex } from '../stores'
     import ResultsMap from './results/ResultsMap.svelte'
     import StatusBlock from './results/StatusBlock.svelte'
     import ResultItem from './results/ResultItem.svelte'
@@ -57,7 +57,7 @@
                         {item.name} {item.count}
                     </label>
                 {/each}
-                <div class="queue">
+                <div class="queue" bind:this={$resultsDOM}>
                     {#each filteredResults as result (result.index)}
                         <ResultItem {result} on:message={updateQueueItem}/>
                     {/each}

@@ -1,7 +1,7 @@
 <script>
     import L from '../../libs/leaflet'
     import { onMount } from 'svelte'
-    import { results, openedResultIndex, mapStore } from '../../stores'
+    import { results, resultsDOM, openedResultIndex, mapStore } from '../../stores'
 
     let container
     let map
@@ -38,7 +38,7 @@
     })
 
     $: {
-        if (map) {
+        if (map && $resultsDOM) {
             if (layer) {
                 map.removeLayer(layer)
             }
@@ -70,6 +70,15 @@
                 if (!feature) feature = result.features[0]
                 feature.properties.color = result.color
                 feature.properties.parentId = result.index
+                feature.properties.scrollIntoView = () => {
+                    //scroll to result item when clicked
+                    const { offsetTop: childOffsetTop } = result.dom
+                    const {
+                        offsetTop: parentOffsetTop,
+                        offsetHeight: parentOffsetHeight
+                    } = $resultsDOM
+                    $resultsDOM.scrollTop = parentOffsetTop + childOffsetTop - parentOffsetHeight / 2
+                }
                 return feature
             })
 
@@ -80,11 +89,14 @@
                         layer.bindPopup(feature.properties.label, {
                             closeButton: false,
                             autoPan: false,
-                            offset: L.point(-5, 0)
+                            offset: L.point(0, 0)
                         })
                         layer.on('mouseover', () => layer.openPopup())
                         layer.on('mouseout', () => layer.closePopup())
-                        layer.on('click', () => openedResultIndex.set(feature.properties.parentId))
+                        layer.on('click', () => {
+                            openedResultIndex.set(feature.properties.parentId)
+                            feature.properties.scrollIntoView()
+                        })
                     }
                 }
             }).addTo(map)
@@ -115,6 +127,7 @@
 
     function clearAll() {
         results.reset([])
+        openedResultIndex.set(null)
     }
 
 
