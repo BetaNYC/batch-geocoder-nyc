@@ -3,6 +3,7 @@
 
     import LoadingIndicator from './components/results/LoadingIndicator.svelte'
     import SpeedSubtitle from './components/fun/SpeedSubtitle.svelte'
+    import FeedbackForm from './components/fun/FeedbackForm.svelte'
     import BoundsSelect from './components/BoundsSelect.svelte'
     import InputTextbox from './components/InputTextbox.svelte'
     import ColumnsSelect from './components/ColumnsSelect.svelte'
@@ -23,6 +24,7 @@
                 Inspired by
                 Erik Willems' <a href="https://geocode.localfocus.nl/">Batch geocoder for journalists</a>.</p>
         </div>
+        <FeedbackForm/>
     </div>
 
     <br>
