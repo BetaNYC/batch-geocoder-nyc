@@ -16,7 +16,9 @@
                 _location: d_feature.properties.label,
                 _latitude: d_feature.geometry.coordinates[1],
                 _longitude: d_feature.geometry.coordinates[0],
-                _status: status
+                _status: status,
+                _bin: d_feature.properties.pad_bin,
+                _bbl: d_feature.properties.pad_bbl
             }
         }
         return {
@@ -24,7 +26,9 @@
             _location: '?',
             _latitude: '?',
             _longitude: '?',
-            _status: status
+            _status: status,
+            _bin: '?',
+            _bbl: '?'
         }
     })
 
@@ -66,7 +70,7 @@
     textarea {
         color: #5e5e5e;
         width: 100%;
-        height: 150px;
+        height: 250px;
         line-height: 1.1rem;
     }
 

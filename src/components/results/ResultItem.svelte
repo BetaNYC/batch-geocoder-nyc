@@ -29,7 +29,7 @@
             result = {
                 ...result,
                 features,
-                selectedFeatureId: features.length ? features[0] : null, //select first item by default
+                selectedFeatureId: features.length ? features[0].properties.id : null, //select first item by default
                 approved: null
             }
             result = result
