@@ -9,8 +9,8 @@
 
     function updateColumnns(input){
         //reset selectedColumn and columnOptions when input is updated
-        if ($input.length > 0 && Object.keys($input[0]).length > 0) {
-            const newColumnOptions = Object.keys($input[0])
+        if (input.length > 0 && Object.keys(input[0]).length > 0) {
+            const newColumnOptions = Object.keys(input[0])
             columnOptions = newColumnOptions
             selectedColumn = newColumnOptions[0]
         } else {

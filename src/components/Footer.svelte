@@ -1,8 +1,8 @@
 <footer>
     <div class="footer-links">
         <div class="stack">
-            <a href="">GNU General Public License</a>
-            <a href="">File a GitHub feature request or issue</a>
+            <span>GNU General Public License</span>
+            <a href="https://github.com/BetaNYC/batch-geocoder-nyc/issues" target="_blank">File a GitHub feature request or issue</a>
         </div>
         <figure>
             <img
@@ -14,7 +14,6 @@
         </figure>
         <div class="stack">
             <p>Using <a href="http://geosearch.planninglabs.nyc/">GeoSearch 0.2</a>, PAD 19A</p>
-            <p>A cybernetically enhanced <a href="https://svelte.dev/">Svelete</a> app</p>
         </div>
 
     </div>
