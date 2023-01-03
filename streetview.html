@@ -37,7 +37,7 @@
   <!--suppress JSUnresolvedLibraryURL -->
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.10/lodash.min.js"></script>
   <script type="text/javascript"
-    src="https://streetsmart.cyclomedia.com/api/v22.8/StreetSmartApi.js"></script>
+    src="https://streetsmart.cyclomedia.com/api/v22.17/StreetSmartApi.js"></script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.8.0/proj4.min.js" integrity="sha512-pLnzlcFjcj9A9ggTfXZyscd+BWAV9pHdDrLekEoTimItxZI3uOAi7CSLXAHGZu7zRgG9Xyhl9bG3A1uRSJJOJg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
@@ -97,7 +97,7 @@
         http.open("POST", url, true);
         //http.setRequestHeader("Content-length", postData.length);
         http.setRequestHeader("Content-type", "text/xml");
-        //http.setRequestHeader("apiKey", "mbYh-jcxeTod-DcNu38dej0F-TQR-H85WropuDoNmbUJa_sxiT8J2b8pOP0VuTQd");
+        //http.setRequestHeader("apiKey", apikey);
         this.callback = callback_;
         http.onreadystatechange = function () {
           if (http.readyState == 4  /* && http.status == 200 */) {
@@ -228,11 +228,25 @@
 
     </script>
     <script>
-      var username = 'PlanningNYC';
-      var password = 'psVk@qh%M9(z499g';
-      var container = document.getElementById('viewer');
+      //find and hide login info :)
+      //StreetSmartApi.getState().config 
+      //https://stackoverflow.com/questions/18279141/javascript-string-encryption-and-decryption
+      const decrypt = (salt, encoded) => {
+        const textToChars = (text) => text.split("").map((c) => c.charCodeAt(0));
+        const applySaltToChar = (code) => textToChars(salt).reduce((a, b) => a ^ b, code);
+        return encoded
+          .match(/.{1,2}/g)
+          .map((hex) => parseInt(hex, 16))
+          .map(applySaltToChar)
+          .map((charCode) => String.fromCharCode(charCode))
+          .join("");
+      };
 
-      var streetSmartWindow = document.getElementById('streetsmartApi')
+      const username = decrypt('123456','6d666a627429776660666968477766756c7429697e6429606871');
+      const password = decrypt('123456','73623e657f7f776b');
+      const container = document.getElementById('viewer');
+
+      const streetSmartWindow = document.getElementById('streetsmartApi')
 
       const params = new URLSearchParams(window.location.search);
 
@@ -249,7 +263,7 @@
       const nad83_zone18_proj = ol.proj.get('EPSG:26918')
       const xy_nad83 = proj4('EPSG:4326', 'EPSG:26918', xy)
 
-      var view = new ol.View({
+      const view = new ol.View({
         center: xy_nad83,
         zoom: 17,
         projection: 'EPSG:26918'
