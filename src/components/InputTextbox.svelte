@@ -45,13 +45,14 @@
 
 <div class="container">
     <h5 class="is-size-5">2. Copy and paste a list of locations, or upload a csv.</h5>
-    <p class="is-size-7 has-text-grey-dark">When pasting or uploading files, your first column should be the
-        headers. Columns should be separated by tabs or commas.</p>
+    <p class="is-size-6 has-text-grey-dark">When pasting or uploading files, your first column should be the
+        headers. Columns should be separated by tabs or commas.</p  >
     <div class="field top-margin">
         <div class="control">
             <input type="file" bind:this="{container}" accept=".csv,.tsv">
         </div>
     </div>
+    <p class="is-size-7 has-text-grey">For the best results include a borough or zipcode following a comma. (ie 1 E 161 St, 10451 or 1 E 161 St, Bronx). Remove apt numbers as well.</p>
     <div class="field top-margin">
         <div class="control">
             <textarea {placeholder} class="textarea" value={$inputText}

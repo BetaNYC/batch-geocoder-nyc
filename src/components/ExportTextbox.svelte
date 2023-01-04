@@ -17,8 +17,9 @@
                 _latitude: d_feature.geometry.coordinates[1],
                 _longitude: d_feature.geometry.coordinates[0],
                 _status: status,
-                _bin: d_feature.properties.pad_bin,
-                _bbl: d_feature.properties.pad_bbl
+                //https://github.com/NYCPlanning/labs-geosearch-docker/blob/master/MIGRATING.md
+                _bin: d_feature.properties.addendum.pad.bin,
+                _bbl: d_feature.properties.addendum.pad.bbl
             }
         }
         return {

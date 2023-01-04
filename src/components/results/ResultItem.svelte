@@ -43,7 +43,7 @@
         clearTimeout(timer)
         timer = setTimeout(() => {
             geocode(value)
-        }, 50)
+        }, 250)
     }
 
     function toggleChecked(bool) {
@@ -92,7 +92,7 @@
             <ResultFieldsTable fields={result.fields}></ResultFieldsTable>
             <div class="field body-input">
                 <p class="control">
-                    <input class="input is-small" type="text" placeholder="Street, Borough" bind:value={value}
+                    <input class="input" type="text" placeholder="Typing in a corrected Street, Borough" bind:value={value}
                            on:keyup={() => value.length > 0 ? debounceGeocode(): null}>
                 </p>
                 <button class="button" on:click={() => toggleChecked(true)}>
@@ -149,16 +149,26 @@
         margin: 0.85rem 0.5rem;
         display: flex;
         justify-content: space-around;
+        align-items: center;
     }
 
     .button {
         height: 1.8rem;
-        width: 20%;
+        width: 15%;
         margin-left: 0.2rem;
+    }
+
+    .control{
+        flex: 1;
     }
 
     .material-icons {
         font-size: 1.2rem;
+    }
+
+    .results{
+        display: flex;
+        flex-direction: column;
     }
 
     .results label {
