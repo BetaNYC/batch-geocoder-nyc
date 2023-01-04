@@ -278,6 +278,11 @@
         target: 'map',
         view: view,
       });
+      
+      map.addControl(new ol.control.Attribution({
+        collapsible: false,
+        label: '<a href="https://www.openstreetmap.org/copyright">© OpenStreetMap</a>'
+      }));
 
       var click_event;
 
