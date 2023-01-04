@@ -13,7 +13,7 @@
             <figcaption class="logo_caption">A <a href="https://beta.nyc/" target="_blank">BetaNYC</a> Tool</figcaption>
         </figure>
         <div class="stack">
-            <p>Using <a href="http://geosearch.planninglabs.nyc/">GeoSearch 0.2</a>, PAD 19A</p>
+            <p>Using <a href="http://geosearch.planninglabs.nyc/">GeoSearch</a>, See PAD version <a href="https://github.com/NYCPlanning/labs-geosearch-pad-normalize/blob/main/version.env">here.</a></p>
         </div>
 
     </div>
