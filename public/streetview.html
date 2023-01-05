@@ -3,6 +3,8 @@
 <head>
   <title>Open Layers Street Smart Example</title>
   <meta charset="utf-8" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.css">
+  <link rel="stylesheet" href="https://unpkg.com/openlayers@4.6.5/dist/ol.css" type="text/css">
   <style>
     body {
       display: flex;
@@ -13,6 +15,10 @@
       height: 30vh;
       width: 100vw;
       position: relative;
+    }
+
+    .ol-attribution ul{
+      font-size: 1rem;
     }
 
     .viewer {
@@ -27,18 +33,15 @@
       width: 100%;
     }
   </style>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.css">
-  <!--suppress JSUnresolvedLibraryURL -->
+
   <script type="text/javascript" src="https://unpkg.com/react@18.2.0/umd/react.production.min.js"></script>
-  <!--suppress JSUnresolvedLibraryURL -->
   <script type="text/javascript" src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
-  <!--suppress JSUnresolvedLibraryURL -->
-  <script type="text/javascript" src="https://unpkg.com/openlayers@4.6.5/dist/ol.js"></script>
-  <!--suppress JSUnresolvedLibraryURL -->
+
+  <script src="https://unpkg.com/openlayers@4.6.5/dist/ol.js"></script>
+
   <script type="text/javascript" src="https://unpkg.com/lodash@4.17.21/lodash.min.js"></script>
   <script type="text/javascript"
     src="https://streetsmart.cyclomedia.com/api/v22.20/StreetSmartApi.js"></script>
-
   <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.8.0/proj4.min.js" integrity="sha512-pLnzlcFjcj9A9ggTfXZyscd+BWAV9pHdDrLekEoTimItxZI3uOAi7CSLXAHGZu7zRgG9Xyhl9bG3A1uRSJJOJg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 </head>
@@ -269,20 +272,21 @@
         projection: 'EPSG:26918'
       })
 
+      const attribution = new ol.control.Attribution({
+        collapsible: false,
+      });
+
       var map = new ol.Map({
         layers: [
           new ol.layer.Tile({
             source: new ol.source.OSM(),
           })
         ],
+        controls: ol.control.defaults({attribution: false}).extend([attribution]),
         target: 'map',
         view: view,
       });
       
-      map.addControl(new ol.control.Attribution({
-        collapsible: false,
-        label: '<a href="https://www.openstreetmap.org/copyright">© OpenStreetMap</a>'
-      }));
 
       var click_event;
 
