@@ -34,202 +34,19 @@
     }
   </style>
 
-  <script type="text/javascript" src="https://unpkg.com/react@18.2.0/umd/react.production.min.js"></script>
-  <script type="text/javascript" src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
-
-  <script src="https://unpkg.com/openlayers@4.6.5/dist/ol.js"></script>
-
-  <script type="text/javascript" src="https://unpkg.com/lodash@4.17.21/lodash.min.js"></script>
-  <script type="text/javascript"
-    src="https://streetsmart.cyclomedia.com/api/v22.20/StreetSmartApi.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.8.0/proj4.min.js" integrity="sha512-pLnzlcFjcj9A9ggTfXZyscd+BWAV9pHdDrLekEoTimItxZI3uOAi7CSLXAHGZu7zRgG9Xyhl9bG3A1uRSJJOJg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
+  <script type="text/javascript" src="https://unpkg.com/react@16.14.0/umd/react.production.min.js"></script>
+  <script type="text/javascript" src="https://unpkg.com/react-dom@16.14.0/umd/react-dom.production.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@main/dist/en/v6.12.0/build/ol.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
+  <script type="text/javascript" src="https://streetsmart.cyclomedia.com/api/v22.15/StreetSmartApi.js?f1733f8beb7131559070" ></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.8.1/proj4-src.min.js" integrity="sha512-r4rHKWQn8K1qufdhQRbpocbwlhtRKRd5jYVLL5+Vu3/xV2NBfASBeogPCBDRyvxMntqIxxI8UQODwGvDllnsHQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 
 <body onload="initApi()">
   <div id="map" class="map"></div>
   <div id="viewer" class="viewer">
     <div id="streetsmartApi" class="panoramaViewerWindow"></div>
-    <script>
-      // Panorama viewer by CycloMedia
-      // Authors: SBr, Roo, JBr
-
-
-      /* loads reqording locations from CycloMedia WFS service */
-      /* results are stored in the recordingList. Coordinates 
-       * of recordinglocations are in Web mercator format
-       */
-
-      var wfsClient;
-
-
-      function WFSClient(baseURL_, typename_, srs_, proxy_) {
-        this.useProxy = true;
-        this.localProxy = proxy_;
-        this.baseURL = baseURL_;
-        this.typename = typename_;
-        this.srsName = srs_;
-        wfsClient = this;
-      }
-
-      WFSClient.prototype.getImageInfo = function (imageId, callback_) {
-        var postData = "<wfs:GetFeature service=\"WFS\" version=\"1.1.0\" resultType=\"results\" outputFormat=\"text/xml; subtype=gml/3.1.1\" xmlns:wfs=\"http://www.opengis.net/wfs\">" +
-          "  <wfs:Query typeName=\"atlas:Recording\" srsName=\"##SRS##\" xmlns:atlas=\"http://www.cyclomedia.com/atlas\">" +
-          "    <ogc:Filter xmlns:ogc=\"http://www.opengis.net/ogc\">" +
-          "      <ogc:FeatureId fid=\"##IMAGEID##\"/>" +
-          "    </ogc:Filter>" +
-          "  </wfs:Query>" +
-          "</wfs:GetFeature>";
-
-        postData = postData.replace("##IMAGEID##", imageId);
-        postData = postData.replace(new RegExp("##SRS##", "g"), this.srsName);
-
-        var http;
-        if (window.XMLHttpRequest) {
-          http = new XMLHttpRequest();
-        }
-        else if (window.ActiveXObject) {
-          http = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-
-        //http.setRequestHeader("Content-Type", "text/xml;charset=utf-8");
-
-        //Send the proper header information along with the request
-        var url = this.localProxy + this.baseURL;
-
-        http.open("POST", url, true);
-        //http.setRequestHeader("Content-length", postData.length);
-        http.setRequestHeader("Content-type", "text/xml");
-        //http.setRequestHeader("apiKey", apikey);
-        this.callback = callback_;
-        http.onreadystatechange = function () {
-          if (http.readyState == 4  /* && http.status == 200 */) {
-            wfsClient.parseXML(http.responseText);
-          }
-        };
-
-        http.send(postData);
-
-      };
-
-      WFSClient.prototype.loadBbox = function (left, bottom, right, top, callback_, username, password) {
-        var postData = "<wfs:GetFeature service=\"WFS\" version=\"1.1.0\" resultType=\"results\" outputFormat=\"text/xml; subtype=gml/3.1.1\" xmlns:wfs=\"http://www.opengis.net/wfs\">  " +
-          " <wfs:Query typeName=\"##TYPENAME##\" srsName=\"##SRS##\" xmlns:atlas=\"http://www.cyclomedia.com/atlas\"> " +
-          "  <ogc:Filter xmlns:ogc=\"http://www.opengis.net/ogc\"> " +
-          "    <ogc:And>" +
-          "      <ogc:BBOX> " +
-          "        <gml:Envelope srsName=\"##SRS##\" xmlns:gml=\"http://www.opengis.net/gml\"> " +
-          "          <gml:lowerCorner>##LEFT## ##BOTTOM##</gml:lowerCorner> " +
-          "          <gml:upperCorner>##RIGHT## ##TOP##</gml:upperCorner> " +
-          "        </gml:Envelope> " +
-          "      </ogc:BBOX> " +
-          "      <ogc:PropertyIsNull> " +
-          "        <ogc:PropertyName>expiredAt</ogc:PropertyName> " +
-          "      </ogc:PropertyIsNull> " +
-          "    </ogc:And> " +
-          "  </ogc:Filter> " +
-          " </wfs:Query> " +
-          "</wfs:GetFeature>";
-
-        postData = postData.replace("##TYPENAME##", this.typename);
-        postData = postData.replace(new RegExp("##SRS##", "g"), this.srsName);
-        postData = postData.replace("##LEFT##", left);
-        postData = postData.replace("##BOTTOM##", bottom);
-        postData = postData.replace("##RIGHT##", right);
-        postData = postData.replace("##TOP##", top);
-
-        var url = this.localProxy + this.baseURL;
-        this.callback = callback_;
-
-        //if(BrowserDetect.browser == "Explorer" && BrowserDetect.version == 9){
-        var http = new XMLHttpRequest();
-
-        /* Don't set content type to text/xml because the browser will send a HTTP OPTIONS request
-         * first to check server CORS cababilities.
-         * Let de proxy inject the content-type !
-         * !!! http.setRequestHeader("Content-type", "text/xml"); !!!
-         */
-
-        //Send the proper header information along with the request
-
-        http.open("POST", url, true);
-        http.setRequestHeader("Content-length", postData.length);
-        http.setRequestHeader("Authorization", "Basic " + btoa(username + ":" + password));
-        http.onreadystatechange = function () {
-          if (http.readyState == 4  /* && http.status == 200 */) {
-            wfsClient.parseXML(http.responseText);
-          }
-        };
-        http.send(postData);
-      };
-
-
-      WFSClient.prototype.parseXML = function (xml) {
-        /* Do the parsing stuff */
-        var parseXml;
-
-        if (typeof window.DOMParser != "undefined") {
-          parseXml = function (xmlStr) {
-            return (new window.DOMParser()).parseFromString(xmlStr, "text/xml");
-          };
-        }
-        else if (typeof window.ActiveXObject != "undefined" &&
-          new window.ActiveXObject("Microsoft.XMLDOM")) {
-          parseXml = function (xmlStr) {
-            var xmlDoc = new window.ActiveXObject("Microsoft.XMLDOM");
-            xmlDoc.async = "false";
-            xmlDoc.loadXML(xmlStr);
-            return xmlDoc;
-          };
-        }
-        else {
-          throw new Error("No XML parser found");
-        }
-
-        GeogToWebMercator = function (lon, lat) {
-          var Rad = lat * (Math.PI / 180);
-          var FSin = Math.sin(Rad);
-
-          var o = new Object();
-          o.y = 6378137 / 2.0 * Math.log((1.0 + FSin) / (1.0 - FSin));
-          o.x = lon * 0.017453292519943 * 6378137;
-          return o;
-        };
-
-
-        var xml = parseXml(xml);
-        var recordings = xml.getElementsByTagNameNS("*", "Recording");
-
-        /* Create new list for recordings */
-        this.recordingList = new Array();
-
-        for (var i = 0; i < recordings.length; i++) {
-          isAuthorized = recordings[i].getElementsByTagNameNS("*", "isAuthorized")[0].firstChild.data;
-          if (isAuthorized == "true") {
-            imageid = recordings[i].getElementsByTagNameNS("*", "imageId")[0].firstChild.data;
-            pos = recordings[i].getElementsByTagNameNS("*", "pos")[0].firstChild.data;
-            lonlat = pos.split(" ");
-            lon = parseFloat(lonlat[0]);
-            lat = parseFloat(lonlat[1]);
-            o = GeogToWebMercator(lon, lat);
-
-            t = new Object();
-            t.imageId = imageid;
-            t.x = o.x;
-            t.y = o.y;
-            t.lon = lon;
-            t.lat = lat;
-            this.recordingList.push(t);
-          }
-        }
-
-        if (wfsClient.callback && typeof (wfsClient.callback) === "function") {
-          wfsClient.callback();
-        }
-
-      };
-
-    </script>
+    <script src="./wfsclient.js"></script>
     <script>
       //find and hide login info :)
       //StreetSmartApi.getState().config 
@@ -245,8 +62,9 @@
           .join("");
       };
 
-      const username = decrypt('123456','6d666a627429776660666968477766756c7429697e6429606871');
-      const password = decrypt('123456','73623e657f7f776b');
+      const username = decrypt('123456','576b6669696e6960495e44');
+      const password = decrypt('123456','47576b666946574e35363526495e44');
+      const apiKey = decrypt('123456','766d4a77354356416271606354433f6b445f4e3662433745444342734875684d50346c557e715e6b6e614a734843683e405f4a6b354b4a32665852556a4b6055');
       const container = document.getElementById('viewer');
 
       const streetSmartWindow = document.getElementById('streetsmartApi')
@@ -254,15 +72,20 @@
       const params = new URLSearchParams(window.location.search);
 
       const lnglat_param = params.get("lnglat")
+      const latlng_param = params.get("latlng")
 
 
       let xy = [-74.00205, 40.71996] //default
       if(lnglat_param){
-        xy = lnglat_param.split(',').map(i => +i);
+        xy = lnglat_param.split(/[\/,]+/).map(i => +i);
+      }
+      if(latlng_param){
+        xy = latlng_param.split(/[\/,]+/).reverse().map(i => +i);
       }
 
       //deal with projection and openlayers
       proj4.defs('EPSG:26918', "+proj=utm +zone=18 +ellps=GRS80 +datum=NAD83 +units=m +no_defs");
+      ol.proj.proj4.register(proj4);
       const nad83_zone18_proj = ol.proj.get('EPSG:26918')
       const xy_nad83 = proj4('EPSG:4326', 'EPSG:26918', xy)
 
@@ -317,7 +140,7 @@
 
 
       function openimage(xycoord, wkid) {
-        const viewerType = (StreetSmartApi.ViewerType.PANORAMA);
+        const viewerType = (StreetSmartApi.ViewerType.PANORAMA_ZOOM);
         StreetSmartApi.open(xycoord, {
           viewerType: viewerType,
           srs: wkid,
@@ -331,22 +154,24 @@
             measureTypeButtonVisible: true,
             measureTypeButtonStart: true,
             measureTypeButtonToggle: true,
-          },
+          }
         }).then(
           function (result) {
             if (result && result[0]) {
               streetSmartWindow.style.display = 'block';
               window.panoramaViewer = result[0];
-              viewerColor = 'rgba(255,76,76,0.6)';
+              viewerColor = 'rgba(255,76,76,0.7)';
               colorStyle = new ol.style.Style({
                 fill: new ol.style.Fill({ color: viewerColor }),
                 stroke: new ol.style.Stroke({ color: viewerColor, width: 0.2 })
               });
               window.panoramaViewer.on(StreetSmartApi.Events.panoramaViewer.VIEW_CHANGE, changeview);
-
+              window.panoramaViewer.toggle3DCursor(false)
+              //window.panoramaViewer.toggleCompass(true)
             }
 
           }).catch(function (reason) {
+            streetSmartWindow.style.display = 'none';
             console.log('Failed to create component(s) through API: ' + reason);
           })
       }
@@ -355,14 +180,14 @@
       function initApi() {
         StreetSmartApi.init({
           targetElement: document.getElementById('streetsmartApi'),
-          username: username,
-          password: password,
-          apiKey: "<APIKEY>",
+          username,
+          password,
+          apiKey,
           srs: 'EPSG:26918',
           locale: 'en-us',
           configurationUrl: 'https://atlas.cyclomedia.com/configuration',
           addressSettings: {
-            locale: "en-us",
+            locale: "en",
             database: "Nokia"
           }
         }).then(function () {
@@ -373,12 +198,12 @@
 
       var wfsClient = new WFSClient("https://atlas.cyclomedia.com/Recordings/wfs",
         "atlas:Recording",
-        "EPSG:26918", "");
+        "EPSG:26918", "", apiKey);
 
 
       map.on('moveend', onMoveEnd);
 
-      var vector = new ol.layer.Vector({
+      const vector = new ol.layer.Vector({
         source: new ol.source.Vector(),
         projection: "EPSG:26918",
         style: new ol.style.Style({
@@ -390,6 +215,8 @@
         }),
         visible: true
       });
+   
+      map.addLayer(vector);
 
 
       function RecordingFeature(coordinate) {
@@ -412,9 +239,6 @@
             layerSource.addFeature(feature);
           }
         }
-
-        map.addLayer(vector);
-
       }
 
       function onMoveEnd(evt) {
@@ -487,14 +311,15 @@
         return canvas.getContext('2d');
       };
 
-      var id = 1;
-      var mapLayer;
+      let id = 1;
+      let mapLayer;
 
       function changeview() {
         const rl = window.panoramaViewer.getRecording();
         const view = map.getView()
         view.setCenter(rl.xyz)
         view.setZoom(18)
+        if(mapLayer) map.removeLayer(mapLayer);
 
         if (rl != null) {
           var viewerData = {};
@@ -504,9 +329,6 @@
           viewerData.xyz = rl.xyz;
           viewerData.srs = rl.srs;
           viewerData.scale = 50;
-
-
-          map.removeLayer(mapLayer);
 
           mapLayer = new ol.layer.Vector({
             source: new ol.source.Vector(),
