@@ -1,4 +1,5 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
   <title>Open Layers Street Smart Example</title>
@@ -25,6 +26,7 @@
       height: 70vh;
       width: 100vw;
       background: grey;
+      position: relative;
     }
 
     .panoramaViewerWindow {
@@ -32,19 +34,46 @@
       height: 100%;
       width: 100%;
     }
+
+    #zoom-controls{
+      position: absolute;
+      right: 0.5rem;
+      top: 3rem;
+      display: flex;
+      flex-direction: column;
+      z-index: 999;
+    }
+
+    #zoom-controls button{
+      padding: 0.5rem 1.2rem;
+      margin: 0.2rem;
+      color: white;
+      font-size: 1.5rem;
+      background-color: rgba(65,65,65,.7490196078);
+      border: none;
+      outline: none;
+    }
+
+    #zoom-controls button:hover{
+      background-color: rgba(65,65,65,.9);
+    }
   </style>
 
-  <script type="text/javascript" src="https://unpkg.com/react@16.14.0/umd/react.production.min.js"></script>
-  <script type="text/javascript" src="https://unpkg.com/react-dom@16.14.0/umd/react-dom.production.min.js"></script>
+  <script type="text/javascript" src="https://unpkg.com/react@18.2.0/umd/react.production.min.js"></script>
+  <script type="text/javascript" src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@main/dist/en/v6.12.0/build/ol.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
-  <script type="text/javascript" src="https://streetsmart.cyclomedia.com/api/v22.15/StreetSmartApi.js?f1733f8beb7131559070" ></script>
+  <script type="text/javascript" src="https://streetsmart.cyclomedia.com/api/v24.0/StreetSmartApi.js" ></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.8.1/proj4-src.min.js" integrity="sha512-r4rHKWQn8K1qufdhQRbpocbwlhtRKRd5jYVLL5+Vu3/xV2NBfASBeogPCBDRyvxMntqIxxI8UQODwGvDllnsHQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 
 <body onload="initApi()">
   <div id="map" class="map"></div>
   <div id="viewer" class="viewer">
+    <div id="zoom-controls">
+      <button onclick="setZoom(-25)">+</button>
+      <button onclick="setZoom(+35)">-</button>
+    </div>
     <div id="streetsmartApi" class="panoramaViewerWindow"></div>
     <script src="./wfsclient.js"></script>
     <script>
@@ -73,6 +102,11 @@
 
       const lnglat_param = params.get("lnglat")
       const latlng_param = params.get("latlng")
+      let current_hFov = null
+
+      function setZoom(hFov_delta){
+        window.panoramaViewer.setOrientation({hFov: current_hFov + hFov_delta}) // degrees
+      }
 
 
       let xy = [-74.00205, 40.71996] //default
@@ -326,6 +360,7 @@
           var orientation = window.panoramaViewer.getOrientation();
           viewerData.yaw = orientation.yaw * Math.PI / 180;
           viewerData.hFov = orientation.hFov * Math.PI / 180.0;
+          current_hFov = orientation.hFov
           viewerData.xyz = rl.xyz;
           viewerData.srs = rl.srs;
           viewerData.scale = 50;
