@@ -29,10 +29,11 @@
 
         L.control.layers({
             'osm': L.tileLayer(
-                    'https://cartodb-basemaps-{s}.global.ssl.fastly.net/rastertiles/voyager_labels_under/{z}/{x}/{y}{r}.png',
+                    'https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.{ext}',
                     {
                         ...settings,
-                        attribution: 'Carto | &copy; <a href="http://osm.org/copyright">OSM</a> contributors'
+                        ext: 'png',
+                        attribution: '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     }
             ).addTo(map),
         }, {}, { position: 'topleft', collapsed: false }).addTo(map)
