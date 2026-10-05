@@ -1,1 +1,1 @@
-<a href="https://forms.gle/8DX1CqUTZShorQai6">Feedback, issues, or add a joke?</a>
+<a href="https://github.com/BetaNYC/batch-geocoder-nyc/issues">Feedback, issues, or add a joke?</a>

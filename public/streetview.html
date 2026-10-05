@@ -18,7 +18,7 @@
       position: relative;
     }
 
-    .ol-attribution ul{
+    .ol-attribution ul {
       font-size: 1rem;
     }
 
@@ -35,7 +35,7 @@
       width: 100%;
     }
 
-    #zoom-controls{
+    #zoom-controls {
       position: absolute;
       right: 0.5rem;
       top: 3rem;
@@ -44,27 +44,29 @@
       z-index: 999;
     }
 
-    #zoom-controls button{
+    #zoom-controls button {
       padding: 0.5rem 1.2rem;
       margin: 0.2rem;
       color: white;
       font-size: 1.5rem;
-      background-color: rgba(65,65,65,.7490196078);
+      background-color: rgba(65, 65, 65, .7490196078);
       border: none;
       outline: none;
     }
 
-    #zoom-controls button:hover{
-      background-color: rgba(65,65,65,.9);
+    #zoom-controls button:hover {
+      background-color: rgba(65, 65, 65, .9);
     }
   </style>
 
-  <script type="text/javascript" src="https://unpkg.com/react@18.2.0/umd/react.production.min.js"></script>
-  <script type="text/javascript" src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
-  <script type="text/javascript" src="https://unpkg.com/lodash@4.17.21/lodash.min.js"></script>
+  <!-- see https://developer.cyclomedia.com/documentation/street-smart/js-api/ for latest versions -->
+  <script type="text/javascript" src="https://unpkg.com/react@18.3.1/umd/react.production.min.js"></script>
+  <script type="text/javascript" src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/ol@v10.6.0/dist/ol.js"></script>
-  <script type="text/javascript" src="https://streetsmart.cyclomedia.com/api/v25.2/StreetSmartApi.js" ></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.9.0/proj4.js" integrity="sha512-lO8f7sIViqr9x5VE6Q72PS6f4FoZcuh5W9YzeSyfNRJ9z/qL3bkweiwG6keGzWS0BQzNDqAWXdBhYzFD6KffIw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type="text/javascript" src="https://streetsmart.cyclomedia.com/api/v26.1/StreetSmartApi.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.9.0/proj4.js"
+    integrity="sha512-lO8f7sIViqr9x5VE6Q72PS6f4FoZcuh5W9YzeSyfNRJ9z/qL3bkweiwG6keGzWS0BQzNDqAWXdBhYzFD6KffIw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 
 <body onload="initApi()">
@@ -91,9 +93,9 @@
           .join("");
       };
 
-      const username = decrypt('123456','576b6669696e6960495e44');
-      const password = decrypt('123456','47576b666946574e35363526495e44');
-      const apiKey = decrypt('123456','766d4a77354356416271606354433f6b445f4e3662433745444342734875684d50346c557e715e6b6e614a734843683e405f4a6b354b4a32665852556a4b6055');
+      const username = decrypt('123456', '576b6669696e6960495e44');
+      const password = decrypt('123456', '47576b666946574e35363526495e44');
+      const apiKey = decrypt('123456', '766d4a77354356416271606354433f6b445f4e3662433745444342734875684d50346c557e715e6b6e614a734843683e405f4a6b354b4a32665852556a4b6055');
       const container = document.getElementById('viewer');
 
       const streetSmartWindow = document.getElementById('streetsmartApi')
@@ -104,16 +106,16 @@
       const latlng_param = params.get("latlng")
       let current_hFov = null
 
-      function setZoom(hFov_delta){
-        window.panoramaViewer.setOrientation({hFov: current_hFov + hFov_delta}) // degrees
+      function setZoom(hFov_delta) {
+        window.panoramaViewer.setOrientation({ hFov: current_hFov + hFov_delta }) // degrees
       }
 
 
       let xy = [-74.00205, 40.71996] //default
-      if(lnglat_param){
+      if (lnglat_param) {
         xy = lnglat_param.split(/[\/,]+/).map(i => +i);
       }
-      if(latlng_param){
+      if (latlng_param) {
         xy = latlng_param.split(/[\/,]+/).reverse().map(i => +i);
       }
 
@@ -139,11 +141,11 @@
             source: new ol.source.OSM(),
           })
         ],
-        controls: ol.control.defaults.defaults({attribution: false}).extend([attribution]),
+        controls: ol.control.defaults.defaults({ attribution: false }).extend([attribution]),
         target: 'map',
         view: view,
       });
-      
+
 
       var click_event;
 
@@ -174,7 +176,7 @@
 
 
       function openimage(xycoord, wkid) {
-        const viewerType = (StreetSmartApi.ViewerType.PANORAMA_ZOOM);
+        const viewerType = (StreetSmartApi.ViewerType.PANORAMA);
         StreetSmartApi.open(xycoord, {
           viewerType: viewerType,
           srs: wkid,
@@ -248,7 +250,7 @@
         }),
         visible: true
       });
-   
+
       map.addLayer(vector);
 
 
@@ -269,7 +271,7 @@
             var rec = recordings[i];
             var coord = [rec.lon, rec.lat];
             var coordKey = coord[0] + ',' + coord[1];
-            
+
             if (!addedCoordinates.has(coordKey)) {
               var feature = RecordingFeature(coord);
               layerSource.addFeature(feature);
@@ -357,7 +359,7 @@
         const view = map.getView()
         view.setCenter(rl.xyz)
         view.setZoom(18)
-        if(mapLayer) map.removeLayer(mapLayer);
+        if (mapLayer) map.removeLayer(mapLayer);
 
         if (rl != null) {
           var viewerData = {};
@@ -435,4 +437,5 @@
       }
     </script>
 </body>
+
 </html>
