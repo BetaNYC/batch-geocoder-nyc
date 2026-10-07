@@ -12,13 +12,14 @@
         const settings = {
             maxZoom: 20,
             minZoom: 9,
-            bounds: L.latLngBounds([40.496133, -74.2555913], [40.9155327, -73.70000906])
+            bounds: L.latLngBounds([40.496133, -74.2555913], [40.9155327, -73.70000906]),
+            apiKey: '4fe736cc-12f1-41e9-9ab9-b56366110e40'
         }
         map = L.map(container, { ...settings }).setView([40.694457, -73.93045], 10)
 
         L.control.layers({
             'osm': L.tileLayer(
-                    'https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.{ext}',
+                    'https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.{ext}?api_key={apiKey}',
                     {
                         ...settings,
                         ext: 'png',
