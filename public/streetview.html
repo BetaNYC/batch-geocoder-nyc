@@ -135,11 +135,20 @@
         collapsible: false,
       });
 
+      const stadiamapsApiKey = '4fe736cc-12f1-41e9-9ab9-b56366110e40';
+
       var map = new ol.Map({
         layers: [
           new ol.layer.Tile({
-            source: new ol.source.OSM(),
-          })
+            source: new ol.source.XYZ({
+              projection: ol.proj.get('EPSG:3857'),
+              url: `https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}.png?api_key=${apiKey}`,
+              attributions:
+                '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> ' +
+                '&copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> ' +
+                '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            }),
+          }),
         ],
         controls: ol.control.defaults.defaults({ attribution: false }).extend([attribution]),
         target: 'map',
@@ -176,7 +185,7 @@
 
 
       function openimage(xycoord, wkid) {
-        const viewerType = (StreetSmartApi.ViewerType.PANORAMA);
+        const viewerType = [StreetSmartApi.ViewerType.PANORAMA, StreetSmartApi.ViewerType.OBLIQUE];
         StreetSmartApi.open(xycoord, {
           viewerType: viewerType,
           srs: wkid,
@@ -203,6 +212,8 @@
               });
               window.panoramaViewer.on(StreetSmartApi.Events.panoramaViewer.VIEW_CHANGE, changeview);
               window.panoramaViewer.toggle3DCursor(false)
+
+              overrideMeasureButton();
               //window.panoramaViewer.toggleCompass(true)
             }
 
@@ -210,6 +221,27 @@
             streetSmartWindow.style.display = 'none';
             console.log('Failed to create component(s) through API: ' + reason);
           })
+      }
+
+
+      function overrideMeasureButton() {
+        // the mesure button is broken, replace the click event with startMeasurementMode
+        const oldButton = document.getElementById('cmt-panorama-vnb-measure');
+
+        if (oldButton) {
+          // Clone the button to remove all existing event listeners
+          const newButton = oldButton.cloneNode(true);
+
+          // Replace the old button with the new one
+          oldButton.parentNode.replaceChild(newButton, oldButton);
+
+          // Add your custom event listener
+          newButton.addEventListener('click', function () {
+            StreetSmartApi.startMeasurementMode(window.panoramaViewer, {
+              geometry: StreetSmartApi.MeasurementGeometryType.LINESTRING
+            });
+          });
+        }
       }
 
       //init streetsmartapi and map click listener
