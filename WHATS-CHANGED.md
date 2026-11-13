@@ -7,6 +7,12 @@ This page lists the changes to the Batch geocoder for NYC that a reader would no
 
 To report a bug in this site or ask for a new feature, open an issue at https://github.com/BetaNYC/batch-geocoder-nyc/issues.
 
+## 2026-11-12: A page that lists what has changed
+
+- **Tags:** Site
+- **What changed:** This page is new. It lists the changes to the geocoder that a reader would notice, newest first, and both pages of the site link to it at the bottom.
+- **More detail:** [The same list on GitHub](WHATS-CHANGED.md)
+
 ## 2026-10-16: The measuring tool on the street view page works again
 
 - **Tags:** Site
@@ -49,4 +55,4 @@ To report a bug in this site or ask for a new feature, open an issue at https://
 
 - **Tags:** Site, Data
 - **What changed:** A free web tool to find many New York City addresses at once. Paste a list or upload a CSV, pick the columns that hold the address, check each match on a map and fix it by hand, then copy or download the results with latitude and longitude.
-- **More detail:** [About the geocoder](README.md) · [The first version](https://github.com/BetaNYC/batch-geocoder-nyc/commit/985e75a1f23b1422204118e01357e800a525acd4)
+- **More detail:** [About the geocoder](readme.md) · [The first version](https://github.com/BetaNYC/batch-geocoder-nyc/commit/985e75a1f23b1422204118e01357e800a525acd4)

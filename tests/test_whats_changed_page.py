@@ -10,6 +10,8 @@ Run: python3 tests/test_whats_changed_page.py   (exit 0 passes, 1 fails)
 """
 from __future__ import annotations
 
+import json
+import subprocess
 import sys
 from html.parser import HTMLParser
 from pathlib import Path
@@ -62,11 +64,23 @@ def main() -> int:
     need("".join(o.h1_text).strip() == "What's changed", "the <h1> reads What's changed")
     for tag in ("header", "nav", "main", "footer", "fieldset"):
         need(o.tags.get(tag, 0) >= 1, f"a <{tag}>")
+    # Counts come from the parsed file, so Update lines and an `Unreleased:` entry
+    # (no date yet) are handled.
+    parsed = json.loads(subprocess.run(
+        [sys.executable, str(ROOT / "scripts" / "whats_changed.py"), "json", str(ROOT / "WHATS-CHANGED.md")],
+        check=True, capture_output=True, text=True).stdout)
+    entries = [e for e in parsed["entries"] if e["valid"]]
     articles = o.tags.get("article", 0)
-    need(articles > 0, "at least one <article>")
-    times = [a for t, a in o.attrs_seen if t == "time" and a.get("datetime")]
-    # Update lines carry their own <time>, so there can be more than one per entry.
-    need(len(times) >= articles, "a <time datetime> for each entry")
+    need(articles == len(entries), f"one <article> per entry ({len(entries)})")
+    ids = {a.get("id") for t, a in o.attrs_seen if t == "article"}
+    dates = {a.get("datetime") for t, a in o.attrs_seen if t == "time"}
+    for e in entries:
+        need(e["anchor"] in ids, f"an <article> for {e['anchor']}")
+        if not e["unreleased"]:
+            need(e["date"] in dates, f"a <time datetime> for {e['anchor']}")
+    has_correction = any("Correction" in e["tags"] for e in entries)
+    need(("Corrections only" in PAGE.read_text(encoding="utf-8")) == has_correction,
+         "the Corrections only box exactly when there is a correction")
     need(o.legend.strip() == "Show changes to", "the filter legend")
     need(
         any(a.get("role") == "status" and a.get("aria-live") == "polite" for _, a in o.attrs_seen),
