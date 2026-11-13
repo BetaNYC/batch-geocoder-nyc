@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What&#x27;s changed - Batch geocoder for NYC</title>
+<style>
+body{margin:0;font-family:Poppins,system-ui,sans-serif;color:#414141;background:#fff}
+.wc-skip{position:absolute;left:-999px;top:0;background:#2359a8;color:#fff;padding:.75rem 1rem}
+.wc-skip:focus{left:0}
+header,main,footer{max-width:750px;margin:0 auto;padding:1rem}
+header a,footer a{color:#2359a8}
+h1,h2{font-family:Roboto,system-ui,sans-serif}
+</style>
+</head>
+<body>
+<a class="wc-skip" href="#main">Skip to main content</a>
+<header>
+<nav aria-label="Site"><a href="./">Batch geocoder for NYC home</a></nav>
+</header>
+<main id="main">
+<div class="whats-changed" data-whats-changed>
+<style>
+.whats-changed{color:#414141;font-size:1.0625rem;line-height:1.76;max-width:750px;overflow-wrap:anywhere}
+.whats-changed a{color:#2359a8;text-decoration:underline}
+.whats-changed a:focus-visible,.whats-changed input:focus-visible{outline:3px solid #2359a8;outline-offset:2px}
+.whats-changed fieldset{border:1px solid #949494;border-radius:4px;margin:1.5rem 0 .5rem;padding:.25rem 1rem .5rem}
+.whats-changed legend{font-weight:700;padding:0 .25rem}
+.whats-changed .wc-option{display:inline-flex;align-items:center;gap:.5rem;min-height:44px;margin-right:1.25rem;cursor:pointer}
+.whats-changed .wc-option input{width:1.25rem;height:1.25rem;margin:0;accent-color:#2359a8}
+.whats-changed .wc-status{font-style:italic}
+.whats-changed .wc-entry{border-top:1px solid #949494;padding:1.5rem 0 .5rem}
+.whats-changed .wc-entry[hidden]{display:none}
+.whats-changed .wc-entry h2{font-size:1.5rem;line-height:1.35;margin:0 0 .25rem}
+.whats-changed .wc-meta{margin:0 0 .75rem}
+.whats-changed .wc-tag{display:inline-block;border:1px solid #414141;border-radius:4px;padding:0 .5rem;margin:0 .375rem .25rem 0;line-height:1.6}
+.whats-changed .wc-tag-correction{border:2px solid #2359a8;color:#2359a8;font-weight:700}
+.whats-changed .wc-old-numbers{background:#EEF4FF;border-left:4px solid #2359a8;padding:.75rem 1rem;margin:1rem 0}
+.whats-changed .wc-old-numbers p{margin:0}
+.whats-changed .wc-permalink a{display:inline-block;min-height:44px;line-height:44px}
+.whats-changed .wc-visually-hidden{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media (max-width:600px){.whats-changed .wc-entry h2{font-size:1.25rem}}
+</style>
+<h1>What&#x27;s changed</h1>
+<div class="wc-intro">
+<p>This page lists the changes to the Batch geocoder for NYC that a reader would notice: new features, fixes, changes to the address lookup it uses, and corrections when we published something wrong. Newest first. Small updates to the code it runs on are not listed.</p>
+<ul><li><strong>History begins:</strong> 2020-04-19, the day the geocoder went live. Older entries cover only the bigger changes. Corrections made before this date may be missing.</li><li><strong>Data refresh:</strong> none. The geocoder keeps no data of its own. Every address you give it is looked up live in GeoSearch, NYC Planning&#x27;s address search.</li></ul>
+<p>To report a bug in this site or ask for a new feature, open an issue at https://github.com/BetaNYC/batch-geocoder-nyc/issues.</p>
+</div>
+<div class="wc-filters" hidden>
+<fieldset>
+<legend>Show changes to</legend>
+<label class="wc-option"><input type="checkbox" name="wc-tag" value="Site" checked> Site</label>
+<label class="wc-option"><input type="checkbox" name="wc-tag" value="Data" checked> Data</label>
+<label class="wc-option"><input type="checkbox" name="wc-tag" value="MCP" checked> MCP</label>
+<label class="wc-option"><input type="checkbox" name="wc-corrections" value="Correction"> Corrections only</label>
+</fieldset>
+</div>
+<p class="wc-status" role="status" aria-live="polite" aria-atomic="true">Showing all 7 changes.</p>
+<article class="wc-entry" id="2026-10-16-the-measuring-tool-on-the-street-view-page-works-again" data-tags="Site" aria-labelledby="2026-10-16-the-measuring-tool-on-the-street-view-page-works-again-title">
+<h2 id="2026-10-16-the-measuring-tool-on-the-street-view-page-works-again-title">The measuring tool on the street view page works again</h2>
+<p class="wc-meta"><time datetime="2026-10-16">October 16, 2026</time></p>
+<p class="wc-tags"><span class="wc-visually-hidden">Tags: </span><span class="wc-tag">Site</span></p>
+<p>On the street view page, the button for measuring a distance in a street-level photo was not working. It now starts the measuring tool. The page&#x27;s map also has a new background map.</p>
+<p><strong>Who it affects:</strong> People who use the street view page.</p>
+<p><strong>More detail:</strong> <a href="https://github.com/BetaNYC/batch-geocoder-nyc/pull/19">Pull request</a></p>
+<p class="wc-permalink"><a href="#2026-10-16-the-measuring-tool-on-the-street-view-page-works-again">Link to this change<span class="wc-visually-hidden">: The measuring tool on the street view page works again</span></a></p>
+</article>
+<article class="wc-entry" id="2026-10-05-pasted-lists-are-read-correctly-and-there-is-a-sample-file" data-tags="Site" aria-labelledby="2026-10-05-pasted-lists-are-read-correctly-and-there-is-a-sample-file-title">
+<h2 id="2026-10-05-pasted-lists-are-read-correctly-and-there-is-a-sample-file-title">Pasted lists are read correctly, and there is a sample file</h2>
+<p class="wc-meta"><time datetime="2026-10-05">October 5, 2026</time></p>
+<p class="wc-tags"><span class="wc-visually-hidden">Tags: </span><span class="wc-tag">Site</span></p>
+<p>A pasted or uploaded list can now separate its columns with commas, tabs, pipes or semicolons, and the geocoder works out which. A new link downloads a sample file to start from. The maps have a new background map, and the feedback link now goes to the project&#x27;s GitHub issues.</p>
+<p><strong>More detail:</strong> <a href="https://github.com/BetaNYC/batch-geocoder-nyc/pull/17">Pull request</a></p>
+<p class="wc-update"><strong>Update, <time datetime="2026-10-07">October 7, 2026</time>:</strong> The background map now loads with a key from its provider. <a href="https://github.com/BetaNYC/batch-geocoder-nyc/pull/18">Pull request</a></p>
+<p class="wc-permalink"><a href="#2026-10-05-pasted-lists-are-read-correctly-and-there-is-a-sample-file">Link to this change<span class="wc-visually-hidden">: Pasted lists are read correctly, and there is a sample file</span></a></p>
+</article>
+<article class="wc-entry" id="2023-01-03-the-geocoder-moved-to-version-2-of-geosearch" data-tags="Data Site" aria-labelledby="2023-01-03-the-geocoder-moved-to-version-2-of-geosearch-title">
+<h2 id="2023-01-03-the-geocoder-moved-to-version-2-of-geosearch-title">The geocoder moved to version 2 of GeoSearch</h2>
+<p class="wc-meta"><time datetime="2023-01-03">January 3, 2023</time></p>
+<p class="wc-tags"><span class="wc-visually-hidden">Tags: </span><span class="wc-tag">Data</span><span class="wc-visually-hidden">, </span><span class="wc-tag">Site</span></p>
+<p>Addresses are now looked up in version 2 of GeoSearch, and the building number (BIN) and tax lot number (BBL) in the export are read from that version&#x27;s answers. A new tip says to add a borough or ZIP code after a comma and to leave out apartment numbers. The street view page&#x27;s map now credits OpenStreetMap.</p>
+<p><strong>More detail:</strong> <a href="https://github.com/BetaNYC/batch-geocoder-nyc/commit/abddc43817283e8e5a05c97a8cb2f3d039a58c1b">The change</a> · <a href="https://github.com/NYCPlanning/labs-geosearch-docker/blob/master/MIGRATING.md">GeoSearch&#x27;s notes on version 2</a> · <a href="https://github.com/BetaNYC/batch-geocoder-nyc/pull/15">Credit to OpenStreetMap</a></p>
+<p class="wc-permalink"><a href="#2023-01-03-the-geocoder-moved-to-version-2-of-geosearch">Link to this change<span class="wc-visually-hidden">: The geocoder moved to version 2 of GeoSearch</span></a></p>
+</article>
+<article class="wc-entry" id="2022-04-24-a-street-view-page" data-tags="Site" aria-labelledby="2022-04-24-a-street-view-page-title">
+<h2 id="2022-04-24-a-street-view-page-title">A street view page</h2>
+<p class="wc-meta"><time datetime="2022-04-24">April 24, 2022</time></p>
+<p class="wc-tags"><span class="wc-visually-hidden">Tags: </span><span class="wc-tag">Site</span></p>
+<p>A separate page, streetview.html, shows street-level photos from Cyclomedia for a point on a map. Give it a point in the web address, as lnglat or latlng. Later updates added zoom buttons.</p>
+<p><strong>More detail:</strong> <a href="https://github.com/BetaNYC/batch-geocoder-nyc/commit/96ca111396ff9c44e759fb6c626306c3e8d4e194">The first version</a> · <a href="https://github.com/BetaNYC/batch-geocoder-nyc/commit/93151f6221462582c15b581783621d235a196586">Zoom buttons</a></p>
+<p class="wc-permalink"><a href="#2022-04-24-a-street-view-page">Link to this change<span class="wc-visually-hidden">: A street view page</span></a></p>
+</article>
+<article class="wc-entry" id="2020-08-21-the-geocoder-moved-to-wwwgeocodernyc-and-betanycs-github" data-tags="Site" aria-labelledby="2020-08-21-the-geocoder-moved-to-wwwgeocodernyc-and-betanycs-github-title">
+<h2 id="2020-08-21-the-geocoder-moved-to-wwwgeocodernyc-and-betanycs-github-title">The geocoder moved to www.geocoder.nyc and BetaNYC&#x27;s GitHub</h2>
+<p class="wc-meta"><time datetime="2020-08-21">August 21, 2020</time></p>
+<p class="wc-tags"><span class="wc-visually-hidden">Tags: </span><span class="wc-tag">Site</span></p>
+<p>The geocoder&#x27;s web address became www.geocoder.nyc. Its code moved to BetaNYC&#x27;s account on GitHub. From May 4, 2020 until then, its address had been geocode.dataguide.nyc.</p>
+<p><strong>More detail:</strong> <a href="https://github.com/BetaNYC/batch-geocoder-nyc/issues/1">The request to move it</a></p>
+<p class="wc-permalink"><a href="#2020-08-21-the-geocoder-moved-to-wwwgeocodernyc-and-betanycs-github">Link to this change<span class="wc-visually-hidden">: The geocoder moved to www.geocoder.nyc and BetaNYC&#x27;s GitHub</span></a></p>
+</article>
+<article class="wc-entry" id="2020-04-20-exports-include-the-bin-and-bbl" data-tags="Data Site" aria-labelledby="2020-04-20-exports-include-the-bin-and-bbl-title">
+<h2 id="2020-04-20-exports-include-the-bin-and-bbl-title">Exports include the BIN and BBL</h2>
+<p class="wc-meta"><time datetime="2020-04-20">April 20, 2020</time></p>
+<p class="wc-tags"><span class="wc-visually-hidden">Tags: </span><span class="wc-tag">Data</span><span class="wc-visually-hidden">, </span><span class="wc-tag">Site</span></p>
+<p>The exported file gained two columns for each address the geocoder found: the building number (BIN) and the tax lot number (BBL). The same day, a loading indicator, a feedback link, and plainer descriptions of the export were added.</p>
+<p><strong>More detail:</strong> <a href="https://github.com/BetaNYC/batch-geocoder-nyc/commit/0a1e165afe7ae768dbedefca309501bbaee68b66">The change</a></p>
+<p class="wc-permalink"><a href="#2020-04-20-exports-include-the-bin-and-bbl">Link to this change<span class="wc-visually-hidden">: Exports include the BIN and BBL</span></a></p>
+</article>
+<article class="wc-entry" id="2020-04-19-the-geocoder-went-live" data-tags="Site Data" aria-labelledby="2020-04-19-the-geocoder-went-live-title">
+<h2 id="2020-04-19-the-geocoder-went-live-title">The geocoder went live</h2>
+<p class="wc-meta"><time datetime="2020-04-19">April 19, 2020</time></p>
+<p class="wc-tags"><span class="wc-visually-hidden">Tags: </span><span class="wc-tag">Site</span><span class="wc-visually-hidden">, </span><span class="wc-tag">Data</span></p>
+<p>A free web tool to find many New York City addresses at once. Paste a list or upload a CSV, pick the columns that hold the address, check each match on a map and fix it by hand, then copy or download the results with latitude and longitude.</p>
+<p><strong>More detail:</strong> <a href="https://github.com/BetaNYC/batch-geocoder-nyc/blob/HEAD/README.md">About the geocoder</a> · <a href="https://github.com/BetaNYC/batch-geocoder-nyc/commit/985e75a1f23b1422204118e01357e800a525acd4">The first version</a></p>
+<p class="wc-permalink"><a href="#2020-04-19-the-geocoder-went-live">Link to this change<span class="wc-visually-hidden">: The geocoder went live</span></a></p>
+</article>
+<script>
+(function () {
+  var roots = document.querySelectorAll("[data-whats-changed]");
+  Array.prototype.forEach.call(roots, function (root) {
+    var box = root.querySelector(".wc-filters");
+    var status = root.querySelector(".wc-status");
+    var entries = root.querySelectorAll(".wc-entry");
+    if (!box || !status || !entries.length) return;
+    var tagBoxes = box.querySelectorAll("input[name='wc-tag']");
+    var corrBox = box.querySelector("input[name='wc-corrections']");
+    var total = entries.length;
+    var noun = total === 1 ? "change" : "changes";
+    function apply() {
+      var on = {};
+      Array.prototype.forEach.call(tagBoxes, function (b) { on[b.value] = b.checked; });
+      var shown = 0;
+      Array.prototype.forEach.call(entries, function (el) {
+        var tags = (el.getAttribute("data-tags") || "").split(" ");
+        var ok = tags.some(function (t) { return on[t]; });
+        if (corrBox.checked && tags.indexOf("Correction") < 0) ok = false;
+        el.hidden = !ok;
+        if (ok) shown++;
+      });
+      status.textContent = shown === total
+        ? "Showing all " + total + " " + noun + "."
+        : "Showing " + shown + " of " + total + " " + noun + ".";
+    }
+    function reveal() {
+      var id = decodeURIComponent(location.hash.slice(1));
+      var el = id && document.getElementById(id);
+      if (el && root.contains(el) && el.closest(".wc-entry[hidden]")) {
+        Array.prototype.forEach.call(tagBoxes, function (b) { b.checked = true; });
+        corrBox.checked = false;
+        apply();
+        el.scrollIntoView();
+      }
+    }
+    box.addEventListener("change", apply);
+    window.addEventListener("hashchange", reveal);
+    box.hidden = false;
+  });
+})();
+</script>
+</div>
+</main>
+<footer>
+<p>Built by BetaNYC, a project of the Fund for the City of New York. <a href="https://github.com/BetaNYC/batch-geocoder-nyc/issues">Report a bug on this site or ask for a new feature</a></p>
+</footer>
+</body>
+</html>

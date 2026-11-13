@@ -3,6 +3,8 @@
         <div class="stack">
             <span>GNU General Public License</span>
             <a href="https://github.com/BetaNYC/batch-geocoder-nyc/issues" target="_blank">File a GitHub feature request or issue</a>
+            <!-- Relative on purpose: works at www.geocoder.nyc/ and under any base path. -->
+            <a class="whats-changed" href="whats-changed.html">What's changed</a>
         </div>
         <figure>
             <img
@@ -41,6 +43,14 @@
         display: flex;
         font-size: 11px;
         justify-content: space-around;
+    }
+
+    /* 44px tall target, per BetaNYC's accessibility standard. */
+    .whats-changed {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 44px;
     }
 
     .stack {

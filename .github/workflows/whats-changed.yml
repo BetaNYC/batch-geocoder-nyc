@@ -1,0 +1,42 @@
+name: What's changed
+
+# Checks WHATS-CHANGED.md and the page built from it, on every pull request.
+# This repo had no workflow that runs on pull requests (deploy-to-gh-pages.yml
+# runs on pushes to main), so this is its own small job. The standard it
+# follows is BetaNYC's "What's changed" standard; scripts/whats_changed.py is a
+# copy of the shared checker and renderer and is never edited here.
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  whats-changed:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Full history, so the base branch exists for the append-only check.
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Check WHATS-CHANGED.md
+        run: python3 scripts/whats_changed.py check WHATS-CHANGED.md --base-ref "origin/${{ github.base_ref || 'main' }}"
+
+      # The page is committed in public/, which Vite copies into the site as is.
+      # Fails if someone edits WHATS-CHANGED.md and forgets to rebuild it; the
+      # fix is to run the same command without --check and commit the result.
+      - name: Check the built page is current
+        run: >-
+          python3 scripts/whats_changed.py render WHATS-CHANGED.md --format page
+          --out public/whats-changed.html --site-name "Batch geocoder for NYC"
+          --home-url ./ --repo-url https://github.com/BetaNYC/batch-geocoder-nyc --check
+
+      - name: Check the page's structure and the footer links to it
+        run: python3 tests/test_whats_changed_page.py
